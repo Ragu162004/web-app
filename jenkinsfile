@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    tools {maven "maven"}
+    stages {
+        stage('SCM') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Ragu162004/web-app.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+        stage('build to images') {
+            steps {
+                script {
+                    bat 'docker build -t ragu162004/webapp .'
+                }
+            }
+        }
+        stage('push to hub') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker_cred', toolName: 'docker', url: 'https://index.docker.io/v1/') {
+                              bat 'docker push ragu162004/webapp'
+                    }
+                }
+            }
+        }
+        
+    }
+}
