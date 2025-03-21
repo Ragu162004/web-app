@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: my-web
-        image: 
+        image: ragu162004/webapp1:latest
         ports:
         - containerPort: 9000
 
