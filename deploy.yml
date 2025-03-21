@@ -17,7 +17,7 @@ spec:
         apptype: web-backend
     spec:
       containers:
-      - name: my-app
+      - name: my-web
         image: 
         ports:
         - containerPort: 9000
